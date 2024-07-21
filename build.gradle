@@ -25,6 +25,10 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'org.apache.jena:jena-core:5.0.0'
+    implementation 'org.apache.jena:jena-arq:5.0.0'
+    implementation 'com.github.jsonld-java:jsonld-java:0.13.6'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
