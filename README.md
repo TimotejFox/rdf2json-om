@@ -15,18 +15,23 @@ Params
 `iri=http://www.example.org/person/Person`
 
 Body (Raw text)
-```<?xml version="1.0"?>
+```
+<?xml version="1.0"?>
 <rdf:RDF xmlns="http://www.example.org/person#"
-xml:base="http://www.example.org/person"
-xmlns:dc="http://purl.org/dc/elements/1.1/"
-xmlns:owl="http://www.w3.org/2002/07/owl#"
-xmlns:per="http://www.example.org/person/"
-xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-xmlns:xml="http://www.w3.org/XML/1998/namespace"
-xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
-<owl:Ontology rdf:about="http://www.example.org/person"/>
-
+     xml:base="http://www.example.org/person"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:per="http://www.example.org/person/"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:mapping="http://www.example.org/mapping/"
+     xmlns:per-ind="http://www.example.org/person#">
+    <owl:Ontology rdf:about="http://www.example.org/person">
+        <rdfs:label>Person example ontology</rdfs:label>
+    </owl:Ontology>
+    
 
 
     <!-- 
@@ -80,7 +85,7 @@ xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
 
     <owl:ObjectProperty rdf:about="http://www.example.org/person/isIdentifiedBy">
         <rdfs:domain rdf:resource="http://www.example.org/person/Person"/>
-        <rdfs:range rdf:resource="http://www.example.org/person/SSN"/>
+        <rdfs:range rdf:resource="http://www.example.org/person/SocialSecurityNumber"/>
         <dc:creator>patkom</dc:creator>
         <dc:dateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-07-20T09:46:41Z</dc:dateTime>
         <rdfs:isDefinedBy rdf:resource="http://www.example.org/person"/>
@@ -100,12 +105,21 @@ xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
     
 
 
+    <!-- http://www.example.org/mapping/referenceIRI -->
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/mapping/referenceIRI">
+        <dc:creator>patkom</dc:creator>
+        <dc:dateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-07-21T15:51:31Z</dc:dateTime>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- http://www.example.org/person/hasAge -->
 
     <owl:DatatypeProperty rdf:about="http://www.example.org/person/hasAge">
-        <rdfs:subPropertyOf rdf:resource="http://www.example.org/person/hasValue"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
         <rdfs:domain rdf:resource="http://www.example.org/person/Person"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
         <dc:creator>patkom</dc:creator>
         <dc:dateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-07-20T09:50:49Z</dc:dateTime>
         <rdfs:isDefinedBy rdf:resource="http://www.example.org/person"/>
@@ -117,8 +131,8 @@ xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
     <!-- http://www.example.org/person/hasIdentifierValue -->
 
     <owl:DatatypeProperty rdf:about="http://www.example.org/person/hasIdentifierValue">
-        <rdfs:subPropertyOf rdf:resource="http://www.example.org/person/hasValue"/>
-        <rdfs:domain rdf:resource="http://www.example.org/person/SSN"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdfs:domain rdf:resource="http://www.example.org/person/SocialSecurityNumber"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
         <dc:creator>patkom</dc:creator>
         <dc:dateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-07-20T09:50:18Z</dc:dateTime>
@@ -131,24 +145,13 @@ xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
     <!-- http://www.example.org/person/hasNameValue -->
 
     <owl:DatatypeProperty rdf:about="http://www.example.org/person/hasNameValue">
-        <rdfs:subPropertyOf rdf:resource="http://www.example.org/person/hasValue"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
         <rdfs:domain rdf:resource="http://www.example.org/person/Name"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
         <dc:creator>patkom</dc:creator>
         <dc:dateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-07-20T09:49:34Z</dc:dateTime>
         <rdfs:isDefinedBy rdf:resource="http://www.example.org/person"/>
         <rdfs:label>has name value</rdfs:label>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.example.org/person/hasValue -->
-
-    <owl:DatatypeProperty rdf:about="http://www.example.org/person/hasValue">
-        <dc:creator>patkom</dc:creator>
-        <dc:dateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-07-20T09:59:06Z</dc:dateTime>
-        <rdfs:isDefinedBy rdf:resource="http://www.example.org/person"/>
-        <rdfs:label>has value</rdfs:label>
     </owl:DatatypeProperty>
     
 
@@ -161,6 +164,17 @@ xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
+    
+
+
+    <!-- http://www.example.org/mapping/MappingRule -->
+
+    <owl:Class rdf:about="http://www.example.org/mapping/MappingRule">
+        <dc:creator>patkom</dc:creator>
+        <dc:dateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-07-21T14:36:35Z</dc:dateTime>
+        <rdfs:isDefinedBy rdf:resource="http://www.example.org/mapping"/>
+        <rdfs:label>Mapping rule</rdfs:label>
+    </owl:Class>
     
 
 
@@ -186,14 +200,68 @@ xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
     
 
 
-    <!-- http://www.example.org/person/SSN -->
+    <!-- http://www.example.org/person/SocialSecurityNumber -->
 
-    <owl:Class rdf:about="http://www.example.org/person/SSN">
+    <owl:Class rdf:about="http://www.example.org/person/SocialSecurityNumber">
         <dc:creator>patkom</dc:creator>
         <dc:dateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-07-20T09:43:22Z</dc:dateTime>
         <rdfs:isDefinedBy rdf:resource="http://www.example.org/person"/>
         <rdfs:label>SSN</rdfs:label>
     </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.example.org/person#NameMappingIndividual -->
+
+    <owl:NamedIndividual rdf:about="http://www.example.org/person#NameMappingIndividual">
+        <rdf:type rdf:resource="http://www.example.org/mapping/MappingRule"/>
+        <rdf:type rdf:resource="http://www.example.org/person/Name"/>
+        <per:hasNameValue>http://www.w3.org/2001/XMLSchema#string</per:hasNameValue>
+        <dc:creator>patkom</dc:creator>
+        <dc:dateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-07-21T14:34:09Z</dc:dateTime>
+        <rdfs:isDefinedBy rdf:resource="http://www.example.org/person"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.example.org/person#PersonMappingIndividual -->
+
+    <owl:NamedIndividual rdf:about="http://www.example.org/person#PersonMappingIndividual">
+        <rdf:type rdf:resource="http://www.example.org/mapping/MappingRule"/>
+        <rdf:type rdf:resource="http://www.example.org/person/Person"/>
+        <per:hasName rdf:resource="http://www.example.org/person#NameMappingIndividual"/>
+        <per:isIdentifiedBy rdf:resource="http://www.example.org/person#SocialSecurityNumberMappingIndividual"/>
+        <per:hasAge>http://www.w3.org/2001/XMLSchema#int</per:hasAge>
+        <dc:creator>patkom</dc:creator>
+        <dc:dateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-07-21T14:45:01Z</dc:dateTime>
+        <rdfs:isDefinedBy rdf:resource="http://www.example.org/person"/>
+        <rdfs:label>Person mapping individual</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.example.org/person#SocialSecurityNumberMappingIndividual -->
+
+    <owl:NamedIndividual rdf:about="http://www.example.org/person#SocialSecurityNumberMappingIndividual">
+        <rdf:type rdf:resource="http://www.example.org/mapping/MappingRule"/>
+        <rdf:type rdf:resource="http://www.example.org/person/SocialSecurityNumber"/>
+        <per:hasIdentifierValue>http://www.w3.org/2001/XMLSchema#string</per:hasIdentifierValue>
+        <dc:creator>patkom</dc:creator>
+        <dc:dateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-07-21T14:47:01Z</dc:dateTime>
+        <rdfs:isDefinedBy rdf:resource="http://www.example.org/person"/>
+        <rdfs:label>Social security number mapping individual</rdfs:label>
+    </owl:NamedIndividual>
 </rdf:RDF>
 
 
@@ -212,12 +280,13 @@ Output
             }
         },
         "per:isIdentifiedBy": {
-            "per:SSN": {
+            "per:SocialSecurityNumber": {
                 "per:hasIdentifierValue": "http://www.w3.org/2001/XMLSchema#string"
             }
         }
     },
     "@context": {
+        "map": "http://www.example.org/mapping/",
         "per": "http://www.example.org/person/"
     }
 }

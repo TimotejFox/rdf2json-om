@@ -8,8 +8,11 @@ import com.google.gson.reflect.TypeToken;
 import jakarta.annotation.Nonnull;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.jena.ontology.OntModel;
+import org.apache.jena.ontology.OntModelSpec;
+import org.apache.jena.rdf.model.ModelFactory;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayInputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -43,11 +46,14 @@ public class ObjectGeneratorService {
     public String getFullObjectFromIri(@Nonnull String iri, @Nonnull String rdf) {
         log.info("getFullObjectFromIri from {}", iri);
 
-        ObjectFromRDFGenerator objectGenerator = new ObjectFromRDFGenerator(iri, iri, rdf);
+        OntModel model = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_RDFS_INF, ModelFactory.createOntologyModel());
+        model.read(new ByteArrayInputStream(rdf.getBytes()), null);
+
+        ObjectFromRDFGenerator objectGenerator = new ObjectFromRDFGenerator(model, iri, iri, RdfService.getModelFromIri(iri, model));
         objectGenerator.setPathIRI(iri);
         Object mapObject = getObjectFromJson(gson.toJson(objectGenerator.getEmptyMap()));
 
-        String contextString = getContextIRIs(objectGenerator.getOntologyModel());
+        String contextString = getContextIRIs(model);
         TreeMap<String, String> context = gson.fromJson(contextString, new TypeToken<TreeMap<String, Object>>() {
         }.getType());
 

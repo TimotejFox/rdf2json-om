@@ -18,7 +18,7 @@ import java.util.TreeMap;
 @Setter
 public class ObjectFromRDFGenerator {
 
-    private final String rdf;
+    private final OntModel mainModel;
     private final String rootIRI;
     private final String sourceIRI;
     private final OntModel ontologyModel;
@@ -27,10 +27,10 @@ public class ObjectFromRDFGenerator {
     private final Gson gson;
     private int currentDepth;
 
-    public ObjectFromRDFGenerator(String rootIRI, String sourceIRI, String modelRDF) {
+    public ObjectFromRDFGenerator(OntModel mainModel, String rootIRI, String sourceIRI, String modelRDF) {
         OntModel model = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_RDFS_INF, ModelFactory.createOntologyModel());
         model.read(new ByteArrayInputStream(modelRDF.getBytes()), null);
-        this.rdf = modelRDF;
+        this.mainModel = mainModel;
         this.ontologyModel = model;
         this.rootIRI = rootIRI;
         this.sourceIRI = sourceIRI;
@@ -48,9 +48,8 @@ public class ObjectFromRDFGenerator {
         // get root of the RDF, this is where the recursion starts
         if (getRoot() != null) {
             // recursion on generateSubObject
-            String rootIri = getRoot().getURI();
             Object subObject = generateSubObject(getRoot());
-            map.put(rootIri, subObject);
+            map.put(getRoot().getURI(), subObject);
         }
         return map;
     }
@@ -58,20 +57,21 @@ public class ObjectFromRDFGenerator {
     public Object generateSubObject(OntClass root) {
         Map<String, Object> ret = new TreeMap<>();
         root.listDeclaredProperties(false).toList().forEach(property -> {
-            if (property.getRange() != null) {
-                Object propertyValue = getRanges(property);
-                if (propertyValue != null) {
-                    ret.put(property.getURI(), propertyValue);
-                }
+            Object propertyValue = getRanges(root, property);
+            if (propertyValue != null) {
+                ret.put(property.getURI(), propertyValue);
             }
         });
 
         return ret;
     }
 
-    private Object getRanges(OntProperty nextProperty) {
+    private Object getRanges(OntClass root, OntProperty nextProperty) {
         if (nextProperty.isDatatypeProperty()) {
-            return nextProperty.getRange().toString();
+            //return nextProperty.getRange().toString();
+            return root.getPropertyValue(nextProperty) != null
+                    ? root.getPropertyValue(nextProperty).asLiteral().getLexicalForm()
+                    : null;
         } else if (nextProperty.getRange() != null) {
             return populateRanges(nextProperty);
         } else return null;
@@ -81,7 +81,7 @@ public class ObjectFromRDFGenerator {
         String propertyIRI = nextProperty.getURI();
         TreeMap<String, Object> rangeMap = new TreeMap<>();
         nextProperty.listRange().toList().forEach(nextRange -> {
-            if (nextRange != null) {
+            if (nextRange != null && !"http://www.w3.org/2000/01/rdf-schema#Resource".equals(nextRange.getURI())) {
                 OntClass range = (OntClass) nextRange;
                 Object rangeValue = continuePopulateRanges(range, propertyIRI);
                 if (rangeValue != null) {
@@ -93,10 +93,11 @@ public class ObjectFromRDFGenerator {
     }
 
     public Object continuePopulateRanges(OntClass nextRange, String propertyIRI) {
-
         String rangeIRI = nextRange.getURI();
-        ObjectFromRDFGenerator objectGenerator = new ObjectFromRDFGenerator(this.rootIRI, rangeIRI, this.rdf);
-        objectGenerator.setPathIRI(this.pathIRI + "|" + propertyIRI + "|" + rangeIRI);
+
+        String newPathIRI = this.pathIRI + "|" + propertyIRI + "|" + rangeIRI;
+        ObjectFromRDFGenerator objectGenerator = new ObjectFromRDFGenerator(this.mainModel, this.rootIRI, rangeIRI, RdfService.getModelFromIri(newPathIRI, this.mainModel));
+        objectGenerator.setPathIRI(newPathIRI);
         Object mapObject = ObjectGeneratorService.getObjectFromJson(gson.toJson(objectGenerator.getEmptyMap().get(rangeIRI)));
         if (mapObject != null && !"{}".equals(mapObject.toString())) {
             return mapObject;
