@@ -1,3 +1,6 @@
+# DEMO
+https://rdf2json.onrender.com/full-object
+
 # RDF2JSON service
 Creates JSON tree structure for provided IRI within the scope of provided RDF.
 
