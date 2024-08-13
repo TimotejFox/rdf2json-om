@@ -40,29 +40,6 @@ Body (Raw text)
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
-    // Annotation properties
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    
-
-
-    <!-- http://purl.org/dc/elements/1.1/creator -->
-
-    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/creator"/>
-    
-
-
-    <!-- http://purl.org/dc/elements/1.1/dateTime -->
-
-    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/dateTime"/>
-    
-
-
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
     // Object Properties
     //
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -118,15 +95,6 @@ Body (Raw text)
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
-    
-
-
-    <!-- http://www.example.org/mapping/referenceIRI -->
-
-    <owl:DatatypeProperty rdf:about="http://www.example.org/mapping/referenceIRI">
-        <dc:creator>patkom</dc:creator>
-        <dc:dateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-07-21T15:51:31Z</dc:dateTime>
-    </owl:DatatypeProperty>
     
 
 
