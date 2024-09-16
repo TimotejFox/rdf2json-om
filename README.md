@@ -13,7 +13,7 @@ After cloning, you can run the service locally with `bootRun` gradle task.
 
 ## Generating the JSON from RDF
 Returns the JSON tree with context.
-GET `http://localhost:8080/full-object`
+POST `http://localhost:8080/full-object`
 
 Params
 `iri=http://www.example.org/person/Person`
