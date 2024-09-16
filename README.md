@@ -1,5 +1,6 @@
 # DEMO
-https://rdf2json.onrender.com/full-object
+Demo service endpoint is available at: https://rdf2json.onrender.com/full-object
+THIS IS NOT A FRONT-END application! Please use Postman or similar client.
 
 # RDF2JSON service
 Creates JSON tree structure for provided IRI within the scope of provided RDF.
