@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class Rdf2JsonController {
 
@@ -20,7 +21,6 @@ public class Rdf2JsonController {
 		this.objectGeneratorService = objectGeneratorService;
 	}
 
-	@CrossOrigin(origins = "*")
 	@PostMapping(path = "/full-object", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> getFullObject(
 			@RequestParam("iri") final String iri,
