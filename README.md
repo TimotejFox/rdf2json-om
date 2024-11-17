@@ -1,6 +1,7 @@
 # DEMO
 Demo service endpoint is available at: https://rdf2json.onrender.com/full-object
 THIS IS NOT A FRONT-END application! Please use Postman or similar client. It is running on a free-tier server; therefore, the response speed is not optimal.
+Simple frontend demo can be seen here https://rdf2jons-ui.vercel.app/.
 
 # RDF2JSON-OM service
 Creates JSON tree structure for provided IRI within the scope of provided RDF.
