@@ -1,12 +1,12 @@
 # DEMO
 Demo service endpoint is available at: https://rdf2json.onrender.com/full-object
-THIS IS NOT A FRONT-END application! Please use Postman or similar client. It is running on a free-tier server therefore the response speed is not optimal.
+THIS IS NOT A FRONT-END application! Please use Postman or similar client. It is running on a free-tier server; therefore, the response speed is not optimal.
 
 # RDF2JSON-OM service
 Creates JSON tree structure for provided IRI within the scope of provided RDF.
 
 ## Installation
-Clone the repo, which represents a Spring Boot Web Service with gradle settings.
+Clone the repo, which represents a Spring Boot Web Service with Gradle settings.
 
 ## Running the service
 After cloning, you can run the service locally with `bootRun` gradle task.
