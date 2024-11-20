@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
-	@Override
+/*	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/full-object")
 				.allowedOrigins("http://localhost:5173", "https://rdf2jons-ui.vercel.app/")
@@ -17,5 +17,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
 						HttpMethod.POST.name()
 				)
 				.allowedHeaders(HttpHeaders.CONTENT_TYPE, HttpHeaders.AUTHORIZATION);
-	}
+	}*/
 }
